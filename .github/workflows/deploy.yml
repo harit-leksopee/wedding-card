@@ -1,6 +1,5 @@
 name: Deploy React Site
 
-
 on:
   push:
     branches:
@@ -28,15 +27,29 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22 # อัปเดตเป็น Node 22 เพื่อเคลียร์ตัว Warning บรรทตล่าง
 
       - name: Install dependencies
-        run: npm install # เปลี่ยนมาใช้ install เพื่อความยืดหยุ่นหากไม่มี lockfile
+        run: |
+          if [ -f yarn.lock ]; then
+            yarn install --frozen-lockfile
+          elif [ -f pnpm-lock.yaml ]; then
+            corepack enable && pnpm install --frozen-lockfile
+          else
+            npm install
+          fi
 
       - name: Build
-        run: npm run build
+        run: |
+          if [ -f yarn.lock ]; then
+            yarn build
+          elif [ -f pnpm-lock.yaml ]; then
+            pnpm build
+          else
+            npm run build
+          fi
         env:
-          CI: false # สั่งปิดการเช็ก Warning เพื่อไม่ให้ระบบเตะโค้ดเราลงเมื่อเจอแจ้งเตือนเล็กน้อย
+          CI: false
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -44,7 +57,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # หากใช้ Create React App ให้เปลี่ยนคำว่า dist เป็น build ครับ
+          path: './dist' # หากเช็กในโปรเจกต์แล้วพบว่าเป็น Create React App ให้เปลี่ยนเป็น './build' ครับ
 
       - name: Deploy to GitHub Pages
         id: deployment
