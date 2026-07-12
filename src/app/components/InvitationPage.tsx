@@ -463,7 +463,7 @@ function SecsionGallery({ onPhotoClick }: { onPhotoClick: (i: number) => void })
 interface RsvpProps {
   fullName: string; setFullName: (v: string) => void;
   nickname: string; setNickname: (v: string) => void;
-  email: string; setEmail: (v: string) => void;
+  // email: string; setEmail: (v: string) => void;
   guestOf: GuestOf; setGuestOf: (v: GuestOf) => void;
   willAttend: WillAttend; setWillAttend: (v: WillAttend) => void;
   numGuests: string; setNumGuests: (v: string) => void;
@@ -918,17 +918,17 @@ function SecsionContactUs({ isDesktop }: { isDesktop?: boolean }) {
 
 // ─── SMALL LOGO (contact section footer) ─────────────────────────────────────
 
-function SmallAcLogo() {
-  return (
-    <div className="size-[39px] mt-[43px]">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 39 39">
-        <g id="ACWeddingLogo">
-          <path d={svgPaths.p3364ee80} fill="var(--fill-0, #3E0000)" />
-        </g>
-      </svg>
-    </div>
-  );
-}
+// function SmallAcLogo() {
+//   return (
+//     <div className="size-[39px] mt-[43px]">
+//       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 39 39">
+//         <g id="ACWeddingLogo">
+//           <path d={svgPaths.p3364ee80} fill="var(--fill-0, #3E0000)" />
+//         </g>
+//       </svg>
+//     </div>
+//   );
+// }
 
 // ─── SECTION: BOTTOM ─────────────────────────────────────────────────────────
 
@@ -1123,7 +1123,7 @@ export default function InvitationPage({ isDesktop = false }: InvitationPageProp
 
       <div className="bg-[#400b0b] px-[34px] pt-[29px] pb-[43px] flex flex-col items-center">
         <SecsionContactUs isDesktop={isDesktop} />
-        <SmallAcLogo />
+        {/* <SmallAcLogo /> */}
       </div>
 
       <div className="bg-[#4b0e0e] px-[34px] pt-[36px] pb-[36px]">
