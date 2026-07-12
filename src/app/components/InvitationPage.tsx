@@ -476,7 +476,7 @@ interface RsvpProps {
 const inputBase = "bg-[rgba(255,255,255,0.04)] border-[1.364px] border-solid rounded-[12px] w-full px-[17.364px] py-[13.364px] text-[14px] text-[rgba(245,240,232,0.8)] placeholder:text-[rgba(245,240,232,0.25)] outline-none focus:border-[rgba(201,169,110,0.5)]";
 
 function SecsionRsvp(props: RsvpProps) {
-  const { fullName, setFullName, nickname, setNickname, email, setEmail, guestOf, setGuestOf, willAttend, setWillAttend, numGuests, setNumGuests, specialNotes, setSpecialNotes, submitState, errors, onSubmit } = props;
+  const { fullName, setFullName, nickname, setNickname, guestOf, setGuestOf, willAttend, setWillAttend, numGuests, setNumGuests, specialNotes, setSpecialNotes, submitState, errors, onSubmit } = props;
 
   const selBtnBase = "flex-[1_0_0] h-full min-w-px rounded-[14px] cursor-pointer transition-all";
   const selBtnOff = "bg-[rgba(255,255,255,0.04)] border-[1.364px] border-[rgba(201,169,110,0.15)] border-solid";
@@ -1018,7 +1018,7 @@ export default function InvitationPage({ isDesktop = false }: InvitationPageProp
 
   const [fullName, setFullName] = useState("");
   const [nickname, setNickname] = useState("");
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const [guestOf, setGuestOf] = useState<GuestOf>(null);
   const [willAttend, setWillAttend] = useState<WillAttend>(null);
   const [numGuests, setNumGuests] = useState("");
@@ -1046,8 +1046,8 @@ export default function InvitationPage({ isDesktop = false }: InvitationPageProp
   const handleSubmit = useCallback(async () => {
     const newErrors: Record<string, string> = {};
     if (!nickname.trim()) newErrors.nickname = "Required";
-    if (!email.trim()) newErrors.email = "Required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = "Invalid email";
+    // if (!email.trim()) newErrors.email = "Required";
+    // else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = "Invalid email";
     if (!guestOf) newErrors.guestOf = "Please select one";
     if (willAttend === null) newErrors.willAttend = "Please select one";
     if (willAttend === "yes" && !numGuests.trim()) newErrors.numGuests = "Required";
@@ -1062,7 +1062,7 @@ export default function InvitationPage({ isDesktop = false }: InvitationPageProp
 
     const payload = {
       name: fullName ? `${fullName} (${nickname})` : nickname,
-      email: email,
+      // email: email,
       status: `${willAttend === "yes" ? "Yes" : "No"} | Guest of ${guestOf === "groom" ? "the Groom" : "the Bride"} | ${numGuests} guest(s)`,
       dietary: specialNotes || "-",
     };
@@ -1082,7 +1082,7 @@ export default function InvitationPage({ isDesktop = false }: InvitationPageProp
     } catch {
       setSubmitState("error");
     }
-  }, [fullName, nickname, email, guestOf, willAttend, numGuests, specialNotes]);
+  }, [fullName, nickname, guestOf, willAttend, numGuests, specialNotes]);
 
   return (
     <div className="w-full flex flex-col">
@@ -1106,7 +1106,7 @@ export default function InvitationPage({ isDesktop = false }: InvitationPageProp
         <SecsionRsvp
           fullName={fullName} setFullName={setFullName}
           nickname={nickname} setNickname={setNickname}
-          email={email} setEmail={setEmail}
+          // email={email} setEmail={setEmail}
           guestOf={guestOf} setGuestOf={setGuestOf}
           willAttend={willAttend} setWillAttend={setWillAttend}
           numGuests={numGuests} setNumGuests={setNumGuests}
